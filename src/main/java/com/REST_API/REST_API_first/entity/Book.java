@@ -1,11 +1,20 @@
 package com.REST_API.REST_API_first.entity;
 
-public class Book {
-    private int id;
-    private String title;
-    private String author;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 
-    public Book(int id, String title, String author) {
+@Entity
+public class Book {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    private String title;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Author author;
+
+    public Book(Integer id, String title, Author author) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -14,11 +23,11 @@ public class Book {
     public Book() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -30,11 +39,11 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
